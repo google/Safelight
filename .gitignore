@@ -1,0 +1,14 @@
+# Compiled source #
+###################
+*.o
+*.nexe
+
+# Halide download if running getPnaclHalide.sh #
+################################################
+halide/*
+
+# Go Server Dependencies #
+##########################
+server/bin/*
+server/pkg/*
+server/src/github.com/*
