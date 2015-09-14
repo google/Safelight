@@ -1,7 +1,7 @@
 ABOUT SAFELIGHT
 ================
 Safelight is a web application that aids in devoloping Halide programs.  
-It currently works for NaCl-enabled x86-64 Linux machines running the PNaCl
+It currently works for NaCl-enabled x86-64 Linux and Mac OS machines running the PNaCl
 binary distribution of Halide.  
 Current features include:
 
@@ -9,7 +9,7 @@ Current features include:
 - UI that displays a filter's Stmt, Assembly, and Stdout.
 - UI that displays input parameters and result outputs.
 - A display of a run's processing time.
-- Options for number of runtime threads.
+- Control over number of runtime threads.
 
 >This is not an official Google product.
 
@@ -17,7 +17,7 @@ Current features include:
 HOW TO SETUP SAFELIGHT
 =======================
 ### Requirements:
-- x86_64 Linux
+- x86_64 Linux or Mac
 - [Google Chrome](https://www.google.com/chrome/browser/)
 - [NaCl SDK](https://developer.chrome.com/native-client/sdk/download) (Pepper 42 or later)
 - [Go](https://golang.org/dl/)
@@ -27,7 +27,8 @@ HOW TO SETUP SAFELIGHT
 
             $ ./safelight/getPnaclHalide.sh
             $ source ~/.bashrc
-      -  `getPnaclHalide.sh` will download the correct Halide distribution, install it within your safelight directory, and export HALIDE_DIR to your *.bashrc*.  
+      -  If on Linux, `getPnaclHalide.sh` will download the correct Halide binary distribution, install it within your safelight directory, and export **HALIDE_DIR** to your *.bashrc*.
+      -  If on Mac, `getPnaclHalide.sh` will provide you the link to download the correct Halide binary distribution, but you must extract it and point **HALIDE_DIR** to it manually.
     - **Note: Using a non-PNaCl version of Halide (e.g. Trunk) will result in linker errors.**
 
 
@@ -35,11 +36,11 @@ HOW TO SETUP SAFELIGHT
 -  Ensure that all of the following environment variables are exported.  Paths must be absolute.
 	-  **SAFELIGHT_DIR**=*[path-to-Safelight]/safelight/*
 	-  **HALIDE_DIR**=*[path-to-Halide]/halide/*
-	    -  `getPnaclHalide.sh` automatically exports HALIDE_DIR to your *.bashrc*.
+	    -  If on Linux, `getPnaclHalide.sh` automatically exports HALIDE_DIR to your *.bashrc*.
 	-  **NACL_PEPPER_DIR**=*[path-to-NaCl]/nacl_sdk/pepper_[version-number]/*
 
 ### Enabling NaCl:
--   Enable Native Client under [chrome://flags/#enable-nacl](chrome://flags/#enable-nacl) and restart Chrome.
+-   Enable Native Client under chrome://flags/#enable-nacl and restart Chrome.
 
 ### Running the Server:
 ```sh
@@ -58,7 +59,8 @@ Navigate to http://[hostname]:6502 in your Chrome browser.
 ![safelight_start](images/readmeImages/safelight_start.png "safelight_start")  
 Enjoy using Safelight!
 ### Cleaning dependencies and executables:
-```sh
+```shEnable Native Client under chrome://flags/#enable-nacl and restart Chrome.
+
 $ ./safelight/clean.sh
 ```
 

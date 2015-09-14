@@ -39,13 +39,13 @@ fi
 
 export NACL_TOOLCHAIN_BIN="${NACL_PEPPER_DIR}/toolchain/${os}_pnacl/bin/"
 export NACL_PEPPER_INCLUDE="${NACL_PEPPER_DIR}/include/"
-export SAFELIGHT_TMP="/tmp/safelightTmp"
+export SAFELIGHT_TMP="${SAFELIGHT_DIR}/safelightTmp/"
 export COMPILE_FLAGS="-Wall -Werror -Wno-unused-function -Wcast-qual -fno-rtti"
-export SAFELIGHT_PREBUILTDIR="/tmp/safelightPrebuiltNexeDir"
+export SAFELIGHT_PREBUILTDIR="${SAFELIGHT_TMP}/safelightPrebuiltNexeDir"
 export NEXE_RELEASE_DIR="${NACL_PEPPER_DIR}/lib/clang-newlib"
 export NEXE_LINKING_FLAGS="-Lhalide/bin -lppapi -lppapi_cpp"
-export SAFELIGHT_OUTPUT="$SAFELIGHT_TMP/output/"
-export GOPATH="$SAFELIGHT_DIR/server/"
+export SAFELIGHT_OUTPUT="${SAFELIGHT_TMP}/output/"
+export GOPATH="${SAFELIGHT_DIR}/server/"
 
 COPY_TYPES=(uint8 uint16 float32)
 INPUT_TYPES=(float32 float64 int8 int16 int32 uint8 uint16 uint32)
