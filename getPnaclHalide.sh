@@ -14,17 +14,31 @@
 
 
 #!/bin/bash
-# Downloads PNaCl Halide binary distribution based on a user's gcc version.
+# If on Linux, downloads PNaCl Halide binary distribution based on a user's gcc version.
+# If on Mac OS, provides the link to the proper PNaCl Halide binary distribution.
 
 set -e
 
-gccVersion="`g++ --version | grep '[0-9]\.[0-9]\.[0-9]' -o`"
+gccVersion="`g++ --version`"
 if [[ $gccVersion == *"4.8"* ]]
 then
   gccVersion="48"
 elif [[ $gccVersion == *"4.9"* ]]
 then
   gccVersion="49"
+elif [[ $gccVersion == *"darwin"* ]]
+then
+  echo "...Mac OS detected, checking architecture..."
+  echo "Please download the following .tgz, extract it, and point HALIDE_DIR to the extracted folder."
+  if [[ $gccVersion == *"x86_64"* ]]
+  then
+    echo "https://github.com/halide/Halide/releases/download/release_2015_09_11/halide-mac-64-pnacl-dfcb1fa1e8eceb55bc282b2c73a5c9ae288bcc4f.tgz"
+    exit
+  elif [[ $gccVersion == *"x86_32"* ]]  
+  then
+    echo "https://github.com/halide/Halide/releases/download/release_2015_09_11/halide-mac-32-pnacl-dfcb1fa1e8eceb55bc282b2c73a5c9ae288bcc4f.tgz"
+    exit
+  fi
 else
   exit
 fi

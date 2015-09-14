@@ -16,14 +16,28 @@
 #!/bin/bash
 # Exports environment variables and a few utility functions needed to build the Safelight server.
 
+# Check for environment variables
 : ${NACL_PEPPER_DIR:?"Need to explictly set NACL_PEPPER_DIR.  If you haven't already downloaded it,
     please do here --> https://developer.chrome.com/native-client/sdk/download"}
 : ${SAFELIGHT_DIR:?"Need to explicitly set SAFELIGHT_DIR."}
 : ${HALIDE_DIR:?"Need to explicitly set HALIDE_DIR.  If you haven't already downloaded it,
     please do here --> https://github.com/halide/Halide/releases"}
 
+# Check if we support that OS. Also needed to set NACL_TOOLCHAIN_BIN
+unamea="`uname -a`"
+os=""
+if [[ $unamea == *"Linux"* ]]
+then
+  os="linux"
+elif [[ $unamea == *"Darwin"* ]]
+then
+  os="mac"
+else
+  echo "Safelight currently only supports Linux and Mac OS systems."
+  exit
+fi
 
-export NACL_TOOLCHAIN_BIN="${NACL_PEPPER_DIR}/toolchain/linux_pnacl/bin/"
+export NACL_TOOLCHAIN_BIN="${NACL_PEPPER_DIR}/toolchain/${os}_pnacl/bin/"
 export NACL_PEPPER_INCLUDE="${NACL_PEPPER_DIR}/include/"
 export SAFELIGHT_TMP="/tmp/safelightTmp"
 export COMPILE_FLAGS="-Wall -Werror -Wno-unused-function -Wcast-qual -fno-rtti"

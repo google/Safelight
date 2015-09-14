@@ -33,12 +33,12 @@ import (
 
 // Flags
 var (
-	tempDir         = flag.String("tempDir", os.TempDir(), "Directory for temporary .nexe")
+	tempDir         = flag.String("tempDir", "/tmp/", "Directory for temporary .nexe")
 	htmlIndex       = flag.String("htmlIndex", "safelight/ui/index.html", "HTML Index file")
 	port            = flag.Int("port", 6502, "port for http")
 	cacheSize       = flag.Int("cacheSize", 32, "Size for LRU cache")
 	timeout         = flag.Duration("timeout", 5*60*time.Second, "timeout for building + running generator")
-	prebuiltNexeDir = flag.String("prebuiltNexeDir", os.TempDir()+"/safelightPrebuiltNexeDir", "prebuilt nexe dir")
+	prebuiltNexeDir = flag.String("prebuiltNexeDir", "/tmp/safelightPrebuiltNexeDir", "prebuilt nexe dir")
 )
 
 // Misc globals
