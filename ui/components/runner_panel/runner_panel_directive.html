@@ -1,0 +1,27 @@
+<div>
+  <div class='btn-group' dropdown is-open='status.isopen'>
+    <button type='button'
+            class='btn'
+            ng-click='runnerPanelCtrl.run()'
+            ng-disabled='runnerPanelCtrl.autoRun || !runnerPanelCtrl.built'>
+      Run with {{runnerPanelCtrl.numThreads}} thread(s)
+    </button>
+    <button type='button'
+            class='btn dropdown-toggle'
+            dropdown-toggle>
+      <span class='caret'></span>
+    </button>
+    <ul class='dropdown-menu' role='menu'>
+      <li ng-repeat='t in [1, 2, 4, 8, 12, 16, 32]'>
+        <a ng-click='runnerPanelCtrl.numThreads=t;status.isopen=false;runnerPanelCtrl.doAutoRun();'>
+          {{t}}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <input type='checkbox'
+         ng-change='runnerPanelCtrl.doAutoRun()'
+         ng-model='runnerPanelCtrl.autoRun'>
+    Auto run filter on changes
+  </input>
+</div>

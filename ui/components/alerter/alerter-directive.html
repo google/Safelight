@@ -1,0 +1,7 @@
+<alert ng-repeat="alert in alerterCtrl.alerter.alerts"
+       type="{{alert.type}}"
+       close="alerterCtrl.alerter.dismiss($index)">
+  <div ng-repeat="line in alert.msg.split('\n') track by $index">
+    {{line}}
+  </div>
+</alert>

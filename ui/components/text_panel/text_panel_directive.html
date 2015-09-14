@@ -1,0 +1,11 @@
+<div class="safelight-text-panel">
+  <label ng-if="textPanelCtrl.name!=''">{{::textPanelCtrl.name}}</label>
+  <div class="safelight-text-container">
+      <textarea ui-codemirror="{tabSize: 2, lineNumbers: true, readOnly: 'nocursor'}"
+                ui-refresh="textPanelCtrl.refresh"
+                ng-model="textPanelCtrl.contents">
+      </textarea>
+  </div>
+</div>
+
+

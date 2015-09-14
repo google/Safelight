@@ -1,0 +1,44 @@
+<div>
+  <!-- TODO(srj): the CSS for this directive needs attention. -->
+  <div class="form-inline">
+    <label class="input-sm">Function Name:</label>
+    <input type="text"
+           ng-disabled="builderCtrl.buildInProgress"
+           ng-model="builderCtrl.builder.functionName"
+           ng-model-options="{ debounce: 300 }"
+           class="form-control input-sm"/>
+    <label class="input-sm">Path to Generator:</label>
+    <input type="text"
+           list="pathToGenHistory"
+           ng-disabled="builderCtrl.buildInProgress"
+           ng-model="builderCtrl.builder.pathToGen"
+           ng-model-options="{ debounce: 300 }"
+           ng-keypress="$event.keyCode==13 && builderCtrl.build()"
+           value="{{builderCtrl.builder.pathToGen}}"
+           class="form-control input-sm"/>
+    <datalist id="pathToGenHistory">
+      <option ng-repeat="item in builderCtrl.builder.pathToGenHistory track by $index"
+              value="{{ item }}">
+      </option>
+    </datalist>
+    <label class="input-sm">Target:</label>
+    <select ng-model="builderCtrl.builder.activeTargetName"
+            ng-options="t for t in builderCtrl.builder.buildTargetNames track by t"
+            ng-disabled="builderCtrl.buildInProgress||builderCtrl.builder.buildTargetNames.length==0"
+            class="form-control input-sm">
+    </select>
+    <button ng-disabled="builderCtrl.buildInProgress"
+            ng-click="builderCtrl.build()"
+            class="btn btn-sm">
+      Build
+    </button>
+  </div>
+  <textarea rows="4" cols="200" maxlength="1500"
+            placeholder="(No build log)"
+            ng-disabled=true
+            readonly show-tail
+            class="safelight-builder-buildlog">
+    {{builderCtrl.buildLog}}
+  </textarea>
+</div>
+

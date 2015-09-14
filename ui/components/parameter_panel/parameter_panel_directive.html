@@ -1,0 +1,52 @@
+<div class="safelight-parameter-panel">
+  <label ng-if="parameterPanelCtrl.name!=''">{{::parameterPanelCtrl.name}}</label>
+  <div class="safelight-container">
+    <div class="safelight-contents">
+      <div ng-repeat="uiType in parameterPanelCtrl.uiTypes | filter:{input:parameterPanelCtrl.input}"
+           ng-switch on="uiType.type">
+          <div ng-switch-when="image">
+            <label>{{uiType.name}}</label>
+            <image-preview value="parameterPanelCtrl.values[uiType.name]"></image-preview>
+            <button ng-if="parameterPanelCtrl.input"
+                    class="btn btn-xs"
+                    image-loader
+                    value="parameterPanelCtrl.values[uiType.name]"
+                    onValueChanged="parameterPanelCtrl.onParameterChanged(uiType.name)">
+              Load
+            </button>
+            <button class="btn btn-xs"
+                    image-zoomer
+                    value="parameterPanelCtrl.values[uiType.name]">
+              Zoom
+            </button>
+          </div>
+          <div ng-switch-when="number">
+            <label>{{uiType.name}} ({{uiType.type}})</label>
+            <input type="number"
+                   ng-model="parameterPanelCtrl.values[uiType.name]"
+                   ng-model-options="{ debounce: 100 }"
+                   min="{{uiType.min}}"
+                   max="{{uiType.max}}"
+                   step="{{uiType.step}}"
+                   ng-change="parameterPanelCtrl.onParameterChanged(uiType.name)"/>
+            <input type="range"
+                   ng-model="parameterPanelCtrl.values[uiType.name]"
+                   ng-model-options="{ debounce: 100 }"
+                   min="{{uiType.min}}"
+                   max="{{uiType.max}}"
+                   step="{{uiType.step}}"
+                   ng-show="uiType.slider"
+                   to-number
+                   ng-change="parameterPanelCtrl.onParameterChanged(uiType.name)"/>
+          </div>
+          <div ng-switch-when="boolean">
+            <label>{{uiType.name}} ({{uiType.type}})</label>
+            <input type="checkbox"
+                   ng-model="parameterPanelCtrl.values[uiType.name]"
+                   ng-change="parameterPanelCtrl.onParameterChanged(uiType.name)"/>
+          </div>
+          <div ng-switch-default></div>
+      </div>
+    </div>
+  </div>
+</div>
