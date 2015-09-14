@@ -41,7 +41,7 @@ build_gtest() {
   compileGTestAll="g++ ${cppFlags} -I${GTEST_DIR}/googletest ${cxxFlags} -c ${GTEST_DIR}/googletest/src/gtest-all.cc"
   compileGTestMain="g++ ${cppFlags} -I${GTEST_DIR}/googletest ${cxxFlags} -c ${GTEST_DIR}/googletest/src/gtest_main.cc"
 
-  #TODO(lglucin): Make a simple verbose flag thoughout to ease debugging.  Maybe a wrapper function.
+  #TODO(lglucin): Make a simple verbose flag throughout to ease debugging.  Maybe a wrapper function.
   if [ "$1" == "-v" ]
   then
     echo ${compileGTestAll}
