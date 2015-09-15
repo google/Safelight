@@ -1,5 +1,6 @@
 # Compiled source #
 ###################
+bin/*
 *.o
 *.nexe
 
