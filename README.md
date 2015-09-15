@@ -59,8 +59,7 @@ Navigate to http://[hostname]:6502 in your Chrome browser.
 ![safelight_start](images/readmeImages/safelight_start.png "safelight_start")  
 Enjoy using Safelight!
 ### Cleaning dependencies and executables:
-```shEnable Native Client under chrome://flags/#enable-nacl and restart Chrome.
-
+```sh
 $ ./safelight/clean.sh
 ```
 

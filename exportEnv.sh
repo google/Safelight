@@ -39,7 +39,7 @@ fi
 
 export NACL_TOOLCHAIN_BIN="${NACL_PEPPER_DIR}/toolchain/${os}_pnacl/bin/"
 export NACL_PEPPER_INCLUDE="${NACL_PEPPER_DIR}/include/"
-export SAFELIGHT_TMP="${SAFELIGHT_DIR}/safelightTmp/"
+export SAFELIGHT_TMP="${SAFELIGHT_DIR}/bin/"
 export COMPILE_FLAGS="-Wall -Werror -Wno-unused-function -Wcast-qual -fno-rtti"
 export SAFELIGHT_PREBUILTDIR="${SAFELIGHT_TMP}/safelightPrebuiltNexeDir"
 export NEXE_RELEASE_DIR="${NACL_PEPPER_DIR}/lib/clang-newlib"
