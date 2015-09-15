@@ -1,6 +1,6 @@
 # Compiled source #
 ###################
-safelightTmp/*
+bin/*
 *.o
 *.nexe
 
