@@ -82,9 +82,9 @@ HOW TO USE SAFELIGHT
 
 
 ### Running Halide Programs:
--   If `"Auto run filter on changes"` is checked, your program should run after you click `"Build"` and anytime you change an image, change a number parameter, or change the number of threads.
--   If `"Auto run filter on changes"` is not checked, you can click `"Run with # thread(s)"` to run your program.
--   You may change the number of threads by clicking the `"Run with # thread(s)"` drop down menu and choosing the number of threads to run.
+-   If `"Auto run filter on changes"` is checked, your program should automatically run after it is built and anytime you upload a new image parameter, alter a number parameter, or change the number of threads.
+-   If `"Auto run filter on changes"` is not checked, click `"Run with # thread(s)"` to run your program.
+-   You may change the number of threads by expanding the `"Run with # thread(s)"` drop down menu and choosing the number of threads to run.
 
 ### Example (Try it out!):
 -  `"Function Name"`: *brighten*

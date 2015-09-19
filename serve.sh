@@ -1,4 +1,3 @@
-#!/bin/bash
 # Copyright 2015 Google Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+#!/bin/bash
 # Script for running Safelight using the ui safelight/ui
 # Creates necessary prebuilt files and runs the server.
 
@@ -22,12 +21,11 @@ set -e
 source ${SAFELIGHT_DIR}/exportEnv.sh
 
 # Builds nacl_sniffer.nexe given a specific architecture (x86_64, x86_32, or arm)
-# Dependencies built: nexe_verb_handler.o
+# Targets: nexe_verb_handler.o, nacl_sniffer.nexe
 # $1 Target architecture
 build_nacl_sniffer() {
   echo ">>>>>>>>>> Starting $1 build for nacl_sniffer.nexe..."
 
-  echo "Building nexe_verb_handler.o..."
   compile="$NACL_TOOLCHAIN_BIN$1-nacl-clang++"
   compileFlags="-c ${COMPILE_FLAGS}"
   includes="-I${NACL_PEPPER_INCLUDE} -I${SAFELIGHT_DIR} -I${HALIDE_DIR}/include"
@@ -38,11 +36,11 @@ build_nacl_sniffer() {
   fi
   build_and_move_object_file "${compileNexeVerbHandler}" nexe_verb_handler.o
 
-  echo "Building nacl_sniffer.nexe..."
   compileFlags="${COMPILE_FLAGS} -std=gnu++11"
   includes="-I${NACL_PEPPER_INCLUDE} -I${SAFELIGHT_DIR}"
   linkFlags="-L${NEXE_RELEASE_DIR}_$1/Release ${NEXE_LINKING_FLAGS}"
   deps="$SAFELIGHT_TMP/nexe_verb_handler.o"
+
   buildNaclSniffer="${compile} -o nacl_sniffer.nexe ${compileFlags} ${includes} ${deps} \
     ${SAFELIGHT_DIR}/ui/components/nacl_sniffer/nacl_sniffer.cc ${linkFlags}"
 
@@ -57,6 +55,8 @@ build_nacl_sniffer() {
 }
 
 # Builds visualizers_shell.nexe given a specific architecture (x86_64, x86_32, or arm)
+# Targets: set_image_param_layout.o, buffer_utils_pepper.o, nexe_verb_handler.o,
+# librgba8_visualizer.a, libtransmogrify_rgba8.a, visualizers_shell.nexe.
 # $1 - Target architecture
 build_visualizer_shell() {
   echo ">>>>>>>>>> Starting $1 build for visualizer_shell.nexe..."
@@ -90,17 +90,15 @@ build_visualizer_shell() {
   mv visualizers_shell.nexe ${SAFELIGHT_PREBUILTDIR}/$1
 }
 
-# Builds nexe shell object file (nexe_shell.o)
-# Dependencies built: nexe_verb_handler.o
+# Builds nexe_shell object file.
+# Targets: nexe_verb_handler.o, nexe_shell.o
 build_nexe_shell() {
-  echo "Building nexe_verb_handler.o..."
   compile="${NACL_TOOLCHAIN_BIN}/x86_64-nacl-clang++"
   compileFlags="-c ${COMPILE_FLAGS}"
   includes="-I${NACL_PEPPER_INCLUDE} -I${SAFELIGHT_DIR} -I${HALIDE_DIR}/include"
   compileNexeVerbHandler="${compile} ${compileFlags} ${includes} ${SAFELIGHT_DIR}/visualizers/nexe_verb_handler.cc"
   build_and_move_object_file "${compileNexeVerbHandler}" nexe_verb_handler.o
 
-  echo "Building nexe_shell.cc..."
   compileFlags="${compileFlags} -std=gnu++11"
   build_and_move_object_file "${compile} ${compileFlags} ${includes} ${SAFELIGHT_DIR}/visualizers/nexe_shell.cc" "nexe_shell.o"
 }
@@ -131,7 +129,8 @@ buildVisualizerShells() {
   fi
 }
 
-# Builds files necessary to build .nexe executables
+# Builds files necessary to build the .nexe's that execute Halide code
+# Targets: packaged_call_runtime.o, nexe_shell.o
 buildNexeDeps() {
   if [ ! -f ${SAFELIGHT_TMP}/nexe_shell.o ]; then
     build_copy_image_filters "nacl"

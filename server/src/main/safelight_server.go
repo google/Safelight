@@ -67,16 +67,21 @@ var prebuiltWhitelist = map[string]bool{}
 // This function attempts to open files with name pathname in the order mentioned above and returns an
 // error if all fail.
 func serveFile(pathname string, w http.ResponseWriter) error {
-	fmt.Printf("\nAttempting to serve %s via absolute...:\n", pathname)
+	// The generated HTML asks for these two non-existent files.  We wont attempt to open them.
+	if pathname == "/my.js" || pathname == "/my.css" {
+		return nil
+	}
+
+	fmt.Printf("\nAttempting to serve %s via absolute...", pathname)
 	f, err := os.Open(pathname)
 	if err != nil {
 		// Search for a relative path from outside the safelight directory
-		fmt.Printf("file.Open fails: %v %v...\nAttempting to serve relative to outside safelight...\n", pathname, err)
+		fmt.Printf(" outside safelight...")
 		safelightDir := os.Getenv("SAFELIGHT_DIR") + "/../"
 		pathnameRelToSafelight := safelightDir + pathname
 		f, err = os.Open(pathnameRelToSafelight)
 		if err != nil {
-			fmt.Printf("file.Open fails: %v %v...\nAttempting to serve relative to safelight/ui\n", pathnameRelToSafelight, err)
+			fmt.Printf(" relative to safelight/ui...\n")
 			// If relative path doesn't work, it must be a partial template
 			pathnameRelToUI := os.Getenv("SAFELIGHT_DIR") + "/ui" + pathname
 			f, err = os.Open(pathnameRelToUI)
@@ -156,7 +161,7 @@ func buildFilter(builder safelight.AppBuilder, functionName, pathToGen, target s
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("Path: %v", r.URL.Path)
+	fmt.Printf("Incoming Request: %v\n", r.URL.Path)
 	if r.Method == "GET" {
 		switch r.URL.Path {
 		case "/":
@@ -284,7 +289,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func addHandler(path string, h http.Handler) {
 	// wrap in handler to set (and later clear) basic request-scoped data
 	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("About to serve")
 		h.ServeHTTP(w, r)
 	})
 	http.Handle(path, handler)

@@ -54,7 +54,7 @@ LAYOUTS=(chunky planar)
 # Helper function that executes a build command and moves the object file to a tmp directory
 # $1 - NaCl Toolchain compile command with flags and source file path
 # $2 - Object file to move
-# $3 - Inner folder within $SAFELIGHT_TMP
+# $3 - Optional Argument for an inner folder within $SAFELIGHT_TMP
 build_and_move_object_file() {
   echo "Building $2..."
   echo "$1"
@@ -64,6 +64,7 @@ build_and_move_object_file() {
 }
 
 # Builds copy_image_%s_filters, for each type (uint8, uint16, float32)
+# Target: libcopy_image.a
 # $1 "nacl" if we are building for nacl
 # $2 "tests/deps" if we are testing in order to separate testing dependencies from server dependencies
 build_copy_image_filters() {
@@ -86,6 +87,7 @@ build_copy_image_filters() {
 }
 
 # Build [input_type]_to_rgba8_visualizer_[layout] filters
+# Target: librgba8_visualizer.a
 # $1 Target architecture with dashes
 # $2 Toolchain archive command
 build_rgba_visualizer_filters() {
@@ -107,6 +109,7 @@ build_rgba_visualizer_filters() {
 }
 
 # Build transmogrify_rgba8_to_[input_type] filters
+# Target: libtransmogrify_rgba8.a
 # $1 - Target architecture with dashes
 # $2 - Toolchain archive command
 build_transmogrify_rgba8_filters() {
@@ -126,14 +129,16 @@ build_transmogrify_rgba8_filters() {
 }
 
 # Builds the necessary object files and filters needed for visualizer_shell.nexe
+# Targets: set_image_param_layout.o, buffer_utils_pepper.o, nexe_verb_handler.o, librgba8_visualizer.a, libtransmogrify_rgba8.a,
+# rgba8_visualizer.o, transmogrify_rgba8.o.
 # $1 - Toolchain compile command with flags
 # $2 - Target architecture (with dashes)
 # $3 - Toolchain archive command
-# $4 - If testing, pass in "test/deps" to separate testing dependencies NaCl server.
+# $4 - If testing, pass in "test/deps" to separate testing dependencies from server dependencies.
 build_vs_dependencies() {
   mkdir -p $SAFELIGHT_TMP
 
-  # We always build set_image_param_layout.o with g++, since it is a dependency of a Halide Generator rather than a nacl module.
+  # We always build set_image_param_layout.o with g++, since it is a dependency of a Halide Generator rather than a NaCl module.
   compile="g++"
   compileFlags="${COMPILE_FLAGS} -std=c++11"
   includes="-I${NACL_PEPPER_INCLUDE} -I${SAFELIGHT_DIR} -I${HALIDE_DIR}/include"

@@ -14,7 +14,8 @@
 
 
 #!/bin/bash
-# If on Linux, downloads PNaCl Halide binary distribution based on a user's gcc version.
+# If on Linux, downloads PNaCl Halide binary distribution based on a user's gcc version and sets HALIDE_DIR in
+# the user's .bashrc.
 # If on Mac OS, provides the link to the proper PNaCl Halide binary distribution.
 
 set -e
