@@ -28,16 +28,18 @@ usage() {
 }
 
 # Build nacl_halide first builds the Safelight filter with the Go filterFactory module.
-# It then uses that filter and the dependencies built in serve.sh to build a .nexe file.
-# Lastly, all output files are moves to the $SAFELIGHT_OUTPUT directory and printed to
-# the console..
+# It then uses that filter and links it with the dependencies built by serve.sh to build a .nexe file.
+# All output files are moved to the $SAFELIGHT_OUTPUT directory and printed to
+# the console.
 # $1 Generator name
 # $2 Generator source
 build_nacl_halide() {
   echo ">>>>>>>>> Buidling $1!"
 
+  # Produces filter and corresponding stmt, assembly, and html files.
   ${SAFELIGHT_DIR}/server/bin/filterFactory $1 $2 target=x86-64-nacl-register_metadata -e stmt,assembly,html
 
+  # Build the safelight .nexe
   compile="${NACL_TOOLCHAIN_BIN}x86_64-nacl-clang++"
   compileFlags="${COMPILE_FLAGS}"
   includes="-I${NACL_PEPPER_INCLUDE} -I${SAFELIGHT_TMP}/filters"
@@ -50,6 +52,8 @@ build_nacl_halide() {
   mkdir -p $SAFELIGHT_OUTPUT
   mv $1.* $SAFELIGHT_OUTPUT
   mv $SAFELIGHT_TMP/filters/$1.* $SAFELIGHT_OUTPUT
+ 
+  # We list the output files so that our server can store the file names into a FilterInfo object (see appbuilder_nexe.go).
   echo "Output:"
   ls -d ${SAFELIGHT_TMP}/output/* | grep "$1\."
 }
