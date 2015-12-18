@@ -19,7 +19,7 @@ HOW TO SETUP SAFELIGHT
 ### Requirements:
 - x86_64 Linux or Mac
 - [Google Chrome](https://www.google.com/chrome/browser/)
-- [NaCl SDK](https://developer.chrome.com/native-client/sdk/download) (Pepper 42 or later)
+- [NaCl SDK](https://developer.chrome.com/native-client/sdk/download) (Pepper 46 or later)
 - [Go](https://golang.org/dl/)
 - [PNaCl Halide](https://github.com/halide/Halide/releases)
     - Safelight requires the PNaCl distribution of Halide.
