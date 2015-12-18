@@ -41,7 +41,7 @@ class CopyImage : public Halide::Generator<CopyImage> {
     input_ = ImageParam{input_elem_type_, 4, "copy_input"};
 
     // If output has more channels than input, use opaque for the excess
-    Expr opaque = select(input_.type().code == Halide::Type::Float,
+    Expr opaque = select(input_.type().code() == Halide::Type::Float,
                          cast(input_.type(), 1.0f),
                          cast(input_.type(), input_.type().max()));
 

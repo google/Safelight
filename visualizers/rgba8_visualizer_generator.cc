@@ -74,10 +74,10 @@ class RGBA8Visualizer : public Halide::Generator<RGBA8Visualizer> {
     const Halide::Type type = input_type_;
 
     Func converted("converted");
-    switch (type.code) {
+    switch (type.code()) {
       case Halide::Type::UInt:
         converted(_) = cast<uint8_t>(
-            input_(_) >> (type.bits - 8));
+            input_(_) >> (type.bits() - 8));
         break;
       case Halide::Type::Int:
         converted(_) = unnormalize<uint8_t>(

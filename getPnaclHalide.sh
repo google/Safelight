@@ -33,11 +33,11 @@ then
   echo "Please download the following .tgz, extract it, and point HALIDE_DIR to the extracted folder."
   if [[ $gccVersion == *"x86_64"* ]]
   then
-    echo "https://github.com/halide/Halide/releases/download/release_2015_09_11/halide-mac-64-pnacl-dfcb1fa1e8eceb55bc282b2c73a5c9ae288bcc4f.tgz"
+    echo "https://github.com/halide/Halide/releases/download/release_2015_12_17/halide-mac-64-pnacl-7c6a3e25caa31a3c466f97a5b6e4281c0f3a3678.tgz"
     exit
   elif [[ $gccVersion == *"x86_32"* ]]  
   then
-    echo "https://github.com/halide/Halide/releases/download/release_2015_09_11/halide-mac-32-pnacl-dfcb1fa1e8eceb55bc282b2c73a5c9ae288bcc4f.tgz"
+    echo "https://github.com/halide/Halide/releases/download/release_2015_12_17/halide-mac-32-pnacl-7c6a3e25caa31a3c466f97a5b6e4281c0f3a3678.tgz"
     exit
   fi
 else
@@ -45,9 +45,9 @@ else
 fi
 
 echo ">>>>>>>>>> Downloading Linux_64 PNaCl Halide, gcc version ${gccVersion}..."
-wget https://github.com/halide/Halide/releases/download/release_2015_09_11/halide-linux-64-gcc${gccVersion}-pnacl-dfcb1fa1e8eceb55bc282b2c73a5c9ae288bcc4f.tgz 
-tar zxvf halide-linux-64-gcc${gccVersion}-pnacl-dfcb1fa1e8eceb55bc282b2c73a5c9ae288bcc4f.tgz 
-rm halide-linux-64-gcc${gccVersion}-pnacl-dfcb1fa1e8eceb55bc282b2c73a5c9ae288bcc4f.tgz 
+wget https://github.com/halide/Halide/releases/download/release_2015_12_17/halide-linux-64-gcc${gccVersion}-pnacl-7c6a3e25caa31a3c466f97a5b6e4281c0f3a3678.tgz 
+tar zxvf halide-linux-64-gcc${gccVersion}-pnacl-7c6a3e25caa31a3c466f97a5b6e4281c0f3a3678.tgz 
+rm halide-linux-64-gcc${gccVersion}-pnacl-7c6a3e25caa31a3c466f97a5b6e4281c0f3a3678.tgz 
 
 halideDir="`pwd`/halide/"
 exportCmd="export HALIDE_DIR=\"$halideDir\""

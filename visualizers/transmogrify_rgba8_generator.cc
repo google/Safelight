@@ -68,9 +68,9 @@ class TransmogrifyRGBA8 : public Halide::Generator<TransmogrifyRGBA8> {
     const Halide::Type output_type = output_type_;
 
     Func converted("converted");
-    switch (output_type.code) {
+    switch (output_type.code()) {
       case Halide::Type::UInt: {
-        const int kMultiplier = (1UL << output_type.bits) / 0xFF;
+        const int kMultiplier = (1UL << output_type.bits()) / 0xFF;
         converted(x, y, c) =
             cast(output_type, cast(output_type, clamped(x, y, c)) *
                                   cast(output_type, kMultiplier));
