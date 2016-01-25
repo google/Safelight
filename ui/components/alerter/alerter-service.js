@@ -30,7 +30,7 @@ goog.scope(function() {
  * @struct @ngInject @export @constructor
  */
 safelight.Alerter = function() {
-  /** @export {!Array<string>} */
+  /** @export {!Array<!Object>} */
   this.alerts = [];
 };
 
