@@ -1,6 +1,6 @@
 ABOUT SAFELIGHT
 ================
-Safelight is a web application that aids in devoloping Halide programs.  
+Safelight is a web application that aids in developing Halide programs.  
 It currently works for NaCl-enabled x86-64 Linux and Mac OS machines running the PNaCl
 binary distribution of Halide.  
 Current features include:
@@ -182,7 +182,7 @@ A Successful Output:
         Writing amalgated forward header to 'dist/json/json-forwards.h'
         Amalgating source...
         Writing amalgated source to 'dist/jsoncpp.cpp'
-        Source succesfully amalagated
+        Source successfully amalagated
         Building jsoncpp.o...
         Building packaged_call_tester...
         Building copy_image_uint8_filter...
